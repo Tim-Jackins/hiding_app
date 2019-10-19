@@ -1,0 +1,16 @@
+FROM python:3.6
+
+ENV APP /app
+
+RUN mkdir $APP
+WORKDIR $APP
+
+EXPOSE 80
+
+COPY requirements.txt .
+
+RUN pip install flask gunicorn
+
+COPY . .
+
+CMD ["gunicorn", "-b", "0.0.0.0:80", "app"]
